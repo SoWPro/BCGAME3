@@ -1,0 +1,91 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+#include "BullCowCartridge.h"
+
+void UBullCowCartridge::BeginPlay() // When the game starts
+{
+
+int32 a =1;
+
+//a++;
+
+PrintLine(TEXT("A is:  i%"), a);
+
+    Super::BeginPlay();
+    SetupGame();
+    
+//     //welcoming player
+//     //prompt player for guess
+ }
+
+void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
+ {
+    //check player guess
+    ClearScreen();
+
+    //if game is over clearscreen and setup game again.
+    if(bGameOver)
+    {
+        ClearScreen();
+        SetupGame();
+    }
+    else
+    {
+         PrintLine(Input);
+    if(Input == HiddenWord)
+    {
+        PrintLine("You Won");
+        bGameOver = true;
+    }
+    else
+    {
+        if(Input.Len() != HiddenWord.Len())
+        {
+            PrintLine(TEXT("Please input a %i letter word"), HiddenWord.Len());
+            
+        }
+        PrintLine("You Lost");
+        bGameOver = true;
+    }
+    }
+    
+    
+   
+    //check if Isogram
+    //check if correct number of letters
+    //remove a life
+    //check number of lives
+    //show number of lives
+        //zero= printout sorry you lost
+        //show hidden word?
+            //do you want to play again comment
+            //examine response and check if want to
+                //Y= start game again
+                //N= exit out of program
+                
+                //?do I want to change word in future?
+}
+
+
+void UBullCowCartridge::SetupGame()
+{
+//setting up game
+HiddenWord = TEXT("favorite");//set hidden word
+Lives = 5; //set number of lives
+bGameOver = false;
+PrintIntro();
+}
+
+void UBullCowCartridge::PrintIntro()
+{
+    PrintLine(TEXT("Welcome to Bull Cow game"));
+    PrintLine(TEXT("Please type in a guess."));
+    PrintLine(TEXT("The Secret Word is %i letters long."), HiddenWord.Len());
+    PrintLine(TEXT("Press enter to continue."));
+}
+
+void UBullCowCartridge::EndGame()
+{
+    PrintLine(TEXT("Sorry you lost."));
+    PrintLine(TEXT("Do you want to play again?"));
+    PrintLine(TEXT("Press enter to continue."));
+}
