@@ -1,0 +1,102 @@
+// Fill out your copyright notice in the Description page of Project Settings.
+#include "BullCowCartridge.h"
+
+void UBullCowCartridge::BeginPlay() // When the game starts
+{
+
+    Super::BeginPlay();
+    SetupGame();
+    
+//     //welcoming player
+//     //prompt player for guess
+ }
+
+void UBullCowCartridge::OnInput(const FString& Input) // When the player hits enter
+ {
+    //check player guess
+    if(bGameOver)
+    {
+        ClearScreen();
+        SetupGame();
+    }
+    else
+    {
+         ProcessGuess(Input, Lives);
+    }
+    //if game is over clearscreen and setup game again.
+   
+}
+
+
+void UBullCowCartridge::SetupGame()
+{
+//setting up game
+HiddenWord = TEXT("favorite");//set hidden word
+Lives = HiddenWord.Len(); //set number of lives
+bGameOver = false;
+PrintIntro();
+}
+
+void UBullCowCartridge::PrintIntro()
+{
+    PrintLine(TEXT("Welcome to Bull Cow game"));
+    PrintLine(TEXT("Please type in a guess."));
+    PrintLine(TEXT("The Secret Word is %i letters long."), HiddenWord.Len());
+    PrintLine(TEXT("You have %i number of lives"), Lives);
+    PrintLine(TEXT("Press enter to continue."));
+}
+
+void UBullCowCartridge::EndGame()
+{
+    PrintLine(TEXT("Sorry you lost."));
+    PrintLine(TEXT("Do you want to play again?"));
+    PrintLine(TEXT("Press enter to continue."));
+}
+
+void UBullCowCartridge::ProcessGuess(FString PlayerGuess, int32 Lives)
+{
+  
+          PrintLine(PlayerGuess);
+        if(PlayerGuess == HiddenWord)
+        {
+            PrintLine("You Won");
+            bGameOver = true;
+        }
+        else
+        {
+           --Lives; 
+            PrintLine(TEXT("You lost a life. You have %i remaining."), Lives);
+            if(Lives >0)
+            {
+                if(PlayerGuess.Len() != HiddenWord.Len())
+                {
+                    PrintLine(TEXT("Please input a %i letter word"), HiddenWord.Len());
+            
+                }
+            
+            }
+            else
+            {
+            PrintLine("You Lost");
+            bGameOver = true;
+            }
+        
+        }
+    
+    
+   
+    //check if Isogram
+    //check if correct number of letters
+    //remove a life
+    //check number of lives
+    //show number of lives
+        //zero= printout sorry you lost
+        //show hidden word?
+            //do you want to play again comment
+            //examine response and check if want to
+                //Y= start game again
+                //N= exit out of program
+                
+                //?do I want to change word in future?
+    
+}
